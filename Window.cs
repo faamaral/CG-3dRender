@@ -6,6 +6,10 @@ namespace _3dRender
 {
     internal class Window : GameWindow
     {
+        Object obj = new Object();
+        private int r, g, b;
+        private float ratio = 0.001f;
+
         public Window(GameWindowSettings gameWindowSettings, NativeWindowSettings nativeWindowSettings) : base(gameWindowSettings, nativeWindowSettings)
         {
         }
@@ -14,6 +18,7 @@ namespace _3dRender
         protected override void OnLoad()
         {
             base.OnLoad();
+            obj.load();
             GL.ClearColor(1.0f, 0.0f, 0.0f, 1.0f);
             
         }
@@ -22,6 +27,8 @@ namespace _3dRender
         protected override void OnUpdateFrame(FrameEventArgs args)
         {
             base.OnUpdateFrame(args);
+            r++; g++ ; b++;
+            GL.ClearColor((float)Math.Sin(r * ratio), (float)Math.Cos(g * ratio), (float)Math.Tan(b * ratio), 1.0f);
         }
 
         // draw the objects on screen
@@ -29,6 +36,7 @@ namespace _3dRender
         {
             base.OnRenderFrame(args);
             GL.Clear(ClearBufferMask.ColorBufferBit);
+            obj.draw();
             // double buffer
             SwapBuffers();
         }
