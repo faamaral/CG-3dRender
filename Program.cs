@@ -2,22 +2,25 @@
 using OpenTK.Windowing.Common;
 using OpenTK.Windowing.Desktop;
 
-namespace _3dRender
+namespace HelloWindow
 {
-    public static class Program
+    public class Program
     {
-
-        private static void Main()
+        // Entry point (starts here)
+        public static void Main()
         {
-            // Setting the window
-            var _cfg = new NativeWindowSettings()
+            // Cfg the window
+            NativeWindowSettings cfg = new NativeWindowSettings()
             {
-                Size = new Vector2i(800, 600),
-                Title = "Olá Triângulo",
+                Title = "Hello Window",
+                Size = new Vector2i(640, 480),
                 WindowBorder = WindowBorder.Fixed,
             };
 
-            using (var window = new Window(GameWindowSettings.Default, _cfg)) { window.Run(); }
+
+            // Creating a window
+            Window _window = new Window(GameWindowSettings.Default, cfg);
+            _window.Run();
         }
     }
 }

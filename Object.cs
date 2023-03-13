@@ -1,52 +1,56 @@
 ﻿using OpenTK.Graphics.OpenGL4;
-using System;
-using System.Collections.Generic;
-using System.Linq;
-using System.Text;
-using System.Threading.Tasks;
 
-namespace _3dRender
+
+namespace HelloWindow
 {
     internal class Object
     {
-        enum VERTEX
-        {
-            POSITION,
-            COLOR
-        }
+        private const int POSITION = 0;
+        private const int COLOR = 1;
+        private const int UV = 3;
+
         private int _vertexBufferObject; // Handle
         private int _vertexArrayObject; // 
-        private float[] _data = { -0.5f, -0.5f, 0.0f,
-        0.5f, -0.5f, 0.0f, 0.0f, 0.5f, 0.0f, };
+        private float[] _data = {
+            -0.5f, -0.5f, 0.0f, // Vértice inferior esquerdo
+            0.5f, -0.5f, 0.0f, // Vértice inferior direito
+            0.0f, 0.5f, 0.0f, // Superior 
+        };
+
+        private float[] _colors =
+        {
+            1.0f, 0.0f, 0.0f, // Vértice inferior esquerdo
+            0.0f, 0.0f, 1.0f, // Vértice inferior direito
+            0.0f, 1.0f, 0.0f, // Superior
+        };
 
 
         public Object()
         {
-            
+
         }
 
         public void draw()
         {
             GL.BindVertexArray(_vertexArrayObject);
-            GL.DrawArrays(PrimitiveType.Triangles, 0, 3);
+            GL.DrawArrays(PrimitiveType.Triangles, 0, 3); // Draw Call
         }
 
         public void load()
         {
+            // Generate the buffer
             _vertexBufferObject = GL.GenBuffer();
             // Points to the active buffer
             GL.BindBuffer(BufferTarget.ArrayBuffer, _vertexBufferObject);
             // Insert the data into the buffer
             GL.BufferData(BufferTarget.ArrayBuffer, _data.Length * sizeof(float), _data, BufferUsageHint.StaticDraw);
-
-            // Generte the array object buffer
+            // Generate the array object buffer
             _vertexArrayObject = GL.GenVertexArray();
-            // points to the array object
+            // Points to the array object
             GL.BindVertexArray(_vertexArrayObject);
-
-            // creates an attribute pointer
-            GL.VertexAttribPointer((int)VERTEX.POSITION, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), (int)VERTEX.POSITION);
-
-            GL.EnableVertexAttribArray(0);        }
+            // Creates an attribute pointer
+            GL.VertexAttribPointer(POSITION, 3, VertexAttribPointerType.Float, false, 3 * sizeof(float), POSITION);
+            GL.EnableVertexAttribArray(POSITION);
+        }
     }// 
 }
